@@ -1,0 +1,36 @@
+services:
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    ports:
+      - "8002:3000"
+    volumes:
+      - ./user-service:/usr/src/app
+    depends_on:
+      - user-db
+    networks:
+      - ecommerce-network
+
+  user-db:
+    image: mysql:8.0
+    container_name: user-service-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: users
+      MYSQL_USER: user_service
+      MYSQL_PASSWORD: user_password
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./user-service/docker/db-data:/var/lib/mysql
+    networks:
+      - ecommerce-network
+
+networks:
+  ecommerce-network:
+    external: true
+
+volumes:
+  user-db-data:
+    driver: local
