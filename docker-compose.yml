@@ -17,7 +17,7 @@ services:
     container_name: user-service-db
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: users
+      MYSQL_DATABASE: user-service
       MYSQL_USER: user_service
       MYSQL_PASSWORD: user_password
     ports:
